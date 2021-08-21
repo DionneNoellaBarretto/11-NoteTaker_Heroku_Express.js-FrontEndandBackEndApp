@@ -1,3 +1,4 @@
+/* element selectors */
 html,
 body {
   height: 100%;
@@ -5,6 +6,8 @@ body {
   padding: 0;
 }
 
+
+/* class/id selectors */
 .save-note {
   display: none;
 }

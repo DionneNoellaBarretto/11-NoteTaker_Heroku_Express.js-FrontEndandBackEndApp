@@ -1,9 +1,13 @@
+// global varibale declaration
 let noteTitle;
 let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
+let noteListItems = [];
+
+// dom selector using class names when url is specified as /notes
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
@@ -24,7 +28,7 @@ const hide = (elem) => {
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
-
+// function to get all notes from db
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
@@ -33,6 +37,7 @@ const getNotes = () =>
     },
   });
 
+  // function to save notes to the db
 const saveNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
@@ -42,6 +47,7 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
+  // function to delete not from db
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -50,6 +56,7 @@ const deleteNote = (id) =>
     },
   });
 
+  // for an active note display input text else render empty value
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
@@ -66,6 +73,7 @@ const renderActiveNote = () => {
   }
 };
 
+// get the input note text , save to db and update view to display input text
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
@@ -108,6 +116,7 @@ const handleNewNoteView = (e) => {
   renderActiveNote();
 };
 
+//function to hide save button if note title/text is empty else display it in nav bar
 const handleRenderSaveBtn = () => {
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
@@ -123,9 +132,7 @@ const renderNoteList = async (notes) => {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
 
-  let noteListItems = [];
-
-  // Returns HTML element with or without a delete button
+  // Returns HTML element with or without a delete button unless withDeleteButton arg is false
   const createLi = (text, delBtn = true) => {
     const liEl = document.createElement('li');
     liEl.classList.add('list-group-item');
@@ -180,4 +187,5 @@ if (window.location.pathname === '/notes') {
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
+// function to get and render initial note list
 getAndRenderNotes();
