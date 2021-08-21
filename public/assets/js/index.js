@@ -1,10 +1,9 @@
-// global varibale declaration
+// global variable declaration
 let noteTitle;
 let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
-
 let noteListItems = [];
 
 // dom selector using class names when url is specified as /notes
@@ -153,6 +152,8 @@ const renderNoteList = async (notes) => {
         'text-danger',
         'delete-note'
       );
+      // hover text for click action
+      delBtnEl.setAttribute('title', 'Click to Delete Note');
       delBtnEl.addEventListener('click', handleNoteDelete);
 
       liEl.append(delBtnEl);
