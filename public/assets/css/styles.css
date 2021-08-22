@@ -6,6 +6,14 @@ body {
   padding: 0;
 }
 
+body {
+  /* background color with opacity */
+  background: rgba(24,188,156, 0.3)
+}
+
+h1{
+  text-align: center;
+}
 
 /* class/id selectors */
 .save-note {
@@ -31,12 +39,21 @@ body {
   resize: none;
   height: calc(100% - 63px);
   padding-top: 15px;
+  border: 1px dashed;
+}
+
+.card{
+  height: 50px;
+  margin-top: 13px;
+  font-size: 1rem;
+  border: 1px dotted;
 }
 
 .note-title {
   height: 50px;
   margin-top: 13px;
   font-size: 3rem;
+  border: 1px solid;
 }
 
 .note-title:read-only,
