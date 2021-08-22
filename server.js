@@ -22,6 +22,7 @@ app.get("/api/notes", (req, res) => {
 // Post /api/notes/ function adds new notes to db.json list of notes
 app.post("/api/notes", (req, res) => {
     fs.readFile('db/db.json', 'utf8', (err, data) => {
+              //error handling
         if(err){ res.status(400).json(err) };
         const dbInfo = JSON.parse(data);
         const newNote = {
@@ -32,12 +33,14 @@ app.post("/api/notes", (req, res) => {
                 id: uuid.v4() 
         };
         dbInfo.push(newNote)
-        
+        console.log("New Note added to db.json");
         fs.writeFile('db/db.json', JSON.stringify(dbInfo), 'utf8', (err) => {
+                  //error handling
         if(err){ res.status(400).json(err) };
         return true;
         });
     });
+    // else redirect to landing page ('getting started')
     res.redirect('/')
 })
 
@@ -47,6 +50,7 @@ app.delete("/api/notes/:id", (req, res) => {
     const notes = JSON.parse(fs.readFileSync("./db/db.json"));
     const delNote = notes.filter((rmvNote) => rmvNote.id !== req.params.id);
     fs.writeFileSync("./db/db.json", JSON.stringify(delNote));
+          //return the updated parsed information & display on screen to user
     res.json(delNote);
 })
 
@@ -63,5 +67,5 @@ app.get("*", function (req, res) {
 //link to the app using localhost/port number
 app.listen(PORT, function () {
     console.log("Application is listening on PORT: " + PORT);
-    console.log(`Review your application at http://localhost:${PORT} 🚀`)
+    console.log(`Review your Note Taker application at http://localhost:${PORT} 🚀`)
 });
