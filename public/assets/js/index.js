@@ -80,6 +80,7 @@ const savingNote = () => {
   };
   saveNote(newNote).then(() => {
     displayCurrentNote();
+      // fetchViewNotes(); - not callign this else i see duplicate entries of the notes without a refresh
   });
 };
 
@@ -96,8 +97,8 @@ const deletingNote = (e) => {
   }
 
   deleteNote(noteId).then(() => {
-    // fetchViewNotes();
-    displayCurrentNote();
+      // fetchViewNotes(); - not calling this else i see duplicate entries of the notes without a refresh
+      displayCurrentNote();
   });
 };
 
